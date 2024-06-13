@@ -32,7 +32,12 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS = ['first_name', 'last_name']
 
     objects = UserManager()
-
+     """
+    id: IntegerField (Primary key, not editable)
+    first_name: CharField (Max length 50)
+    last_name: CharField (Max length 50)
+    username: CharField (Max length 50, unique)
+    """
 
 class Account(models.Model):
     INPUT = 'kirim'
@@ -49,3 +54,15 @@ class Account(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
+    """
+    INPUT: String representing an input payment ('kirim').
+    OUTPUT: String representing an output payment ('chiqim').
+    CHOICE_INPUT_OUTPUT: List of tuples representing the choices for payment_type.
+    id: IntegerField (Primary key, not editable)
+    payment_type: CharField (Max length 8, choices between 'Input' and 'Output')
+    total_payment: FloatField (Default 0.0, can be blank or null)
+    payment_for: CharField (Max length 150)
+    created: DateTimeField (Automatically set on creation)
+    updated: DateTimeField (Automatically updated on modification)
+    owner: ForeignKey to the User model (On delete cascade)
+    """
